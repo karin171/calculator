@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Calculator</title>
+    <style>
+        *{margin: 0px; padding: 0px;}
+        #answer{
+            width: 196px;
+            height: 35px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .main{
+            display: flex;
+            flex-wrap: wrap;
+            width: 200px;
+            height: 200px;
+            background: purple;
+        }
+        .main input{
+            width: 50px;
+            height: 50px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор</h1>
+    <input type="text" id="answer">
+    <div class="main">
+        <input type="button" onclick="calc(this.value)" value="1">
+        <input type="button" onclick="calc(this.value)" value="2">
+        <input type="button" onclick="calc(this.value)" value="3">
+        <input type="button" onclick="calc2(this.value)" value="+" style="font-size: 110%;">
+        <input type="button" onclick="calc(this.value)" value="4">
+        <input type="button" onclick="calc(this.value)" value="5">
+        <input type="button" onclick="calc(this.value)" value="6">
+        <input type="button" onclick="calc2(this.value)" value="–" style="font-size: 110%;">
+        <input type="button" onclick="calc(this.value)" value="7">
+        <input type="button" onclick="calc(this.value)" value="8">
+        <input type="button" onclick="calc(this.value)" value="9">
+        <input type="button" onclick="calc2(this.value)" value="x" style="font-size: 102%;">
+        <input type="button" onclick="calc(this.value)" value="0">
+        <input type="button" onclick="calc2(this.value)" value="AC">
+        <input type="button" onclick="calc2(this.value)" value="=" style="font-size: 110%;">
+        <input type="button" onclick="calc2(this.value)" value="÷" style="font-size: 130%;">
+    </div>
+</body>
+<script>
+    var number1, number2, symbol, result;
+    function calc(a) {
+        if (number1 == undefined){     
+            number1 = a;
+            document.getElementById('answer').value = number1;
+        }
+        else if (symbol == undefined){ 
+            number1 = document.getElementById('answer').value + a;
+            result = number1;
+            document.getElementById('answer').value = result;
+        }   
+        else if (symbol != undefined && symbol != '='){ 
+            number2 = document.getElementById('answer').value + a;
+            result = number2;
+            document.getElementById('answer').value = result;
+        }
+    }
+    function calc2(b) {
+        if (number1 == undefined){
+            result = 'Error';
+        }
+        else if (b=='AC'){
+            result = '';
+            number1 = undefined;
+            number2 = undefined;
+            symbol = undefined;
+        }
+        else {
+            switch (b) {
+                case '+':
+                    if (symbol == undefined){
+                        number1 = Number(document.getElementById('answer').value);
+                        symbol = '+';
+                        result = '';
+                    }
+                    else{
+                        number2 = Number(document.getElementById('answer').value);
+                    }
+                    break;
+                case '–':
+                    if (symbol == undefined){
+                        number1 = Number(document.getElementById('answer').value);
+                        symbol = '-';
+                        result = '';
+                    } 
+                    else{
+                        number2 = Number(document.getElementById('answer').value);
+                    }
+                    break;
+                case 'x':
+                    if (symbol == undefined){
+                        number1 = Number(document.getElementById('answer').value);
+                        symbol = '*';
+                        result = '';
+                    } 
+                    else{
+                        number2 = Number(document.getElementById('answer').value);
+                    }
+                    break;
+                case '÷':
+                    if (symbol == undefined){
+                        number1 = Number(document.getElementById('answer').value);
+                        symbol = '/';
+                        result = '';
+                    } 
+                    else{
+                        number2 = Number(document.getElementById('answer').value);
+                    }
+                    break;
+                case '=':
+                    switch(symbol){
+                        case '+':
+                            result = Number(number1) + Number(number2);
+                            number1 = result;
+                            break;
+                        case '-':
+                            result = Number(number1) - Number(number2);
+                            number1 = result;
+                            break;
+                        case '*':
+                            result = Number(number1) * Number(number2);
+                            number1 = result;
+                            break;
+                        case '/':
+                            result = Number(number1) / Number(number2);
+                            number1 = result;
+                            break;
+                    }
+                    number2 = undefined;
+                    symbol = undefined;
+                    break;
+            }
+        }
+        document.getElementById('answer').value = result;
+    }
+</script>
